@@ -224,7 +224,7 @@ int main(int argc, char **argv) {
             uint64_t nnum=MAXL;
             if ((t->complete) < nnum) nnum = t->complete;
             for (uint64_t j=1; j < nnum; ++j)
-                fprintf(ff, "%" PRIu64 " %" PRIu64 "%d\n", raw_latency[i][j], raw_send_time[i][j], raw_function_type[i][j]);
+                fprintf(ff, "%" PRIu64 " %" PRIu64 " %d\n", raw_latency[i][j], raw_send_time[i][j], raw_function_type[i][j]);
             fclose(ff);
         }
     }
@@ -606,7 +606,7 @@ static int response_complete(http_parser *parser) {
             // write (latency, send_time) to file
             if (cfg.print_realtime_latency) {
               //  fprintf(thread->ff, "%" PRIu64 "\n", thread->lat[int(thread->monitored*0.99)]);
-                fprintf(thread->ff, "%" PRId64 " %" PRId64 "%d\n", 
+                fprintf(thread->ff, "%" PRId64 " %" PRId64 " %d\n", 
                     actual_latency_timing, c->actual_latency_start[c->complete & MAXO], c->function_type[c->complete & MAXO]);
                 fflush(thread->ff);
             }
