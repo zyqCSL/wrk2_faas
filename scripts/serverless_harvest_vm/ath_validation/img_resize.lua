@@ -30,7 +30,7 @@ for i = 1, ocr_img_jpg_num do
     -- ocr_img_jpg[i] = mime.b64(temp)
     ocr_img_jpg[i] = f:read("*all")
     f:close()
-    print(ocr_img_dir .. tostring(i) .. ".jpg cached")
+    -- print(ocr_img_dir .. tostring(i) .. ".jpg cached")
   else
     print(ocr_img_dir .. tostring(i) .. ".jpg doesn't exist")
   end
@@ -43,7 +43,7 @@ for i = 1, ocr_img_png_num do
     -- ocr_img_png[i] = mime.b64(temp)
     ocr_img_png[i] = f:read("*all")
     f:close()
-    print(ocr_img_dir .. tostring(i) .. ".png cached")
+    -- print(ocr_img_dir .. tostring(i) .. ".png cached")
   else
     print(ocr_img_dir .. tostring(i) .. ".png doesn't exist")
   end
@@ -63,7 +63,7 @@ for i = 1, img_resize_jpg_num do
     -- img_resize_jpg[i] = mime.b64(temp)
     img_resize_jpg[i] = f:read("*all")
     f:close()
-    print(img_resize_dir .. tostring(i) .. ".jpg cached")
+    -- print(img_resize_dir .. tostring(i) .. ".jpg cached")
   else
     print(img_resize_dir .. tostring(i) .. ".jpg doesn't exist")
   end
@@ -76,7 +76,7 @@ for i = 1, img_resize_png_num do
     -- img_resize_png[i] = mime.b64(temp)
     img_resize_png[i] = f:read("*all")
     f:close()
-    print(img_resize_dir .. tostring(i) .. ".png cached")
+    -- print(img_resize_dir .. tostring(i) .. ".png cached")
   else
     print(img_resize_dir .. tostring(i) .. ".png doesn't exist")
   end
@@ -92,7 +92,7 @@ for i = 1, sentiment_num do
   if f then
     sentiments[i] = f:read("*all")
     f:close()
-    print(sentiment_dir .. tostring(i) .. ".txt cached")
+    -- print(sentiment_dir .. tostring(i) .. ".txt cached")
   else
     print(sentiment_dir .. tostring(i)  .. ".txt doesn't exist")
   end
@@ -108,7 +108,7 @@ for i = 1, markdown_num do
   if f then
     markdowns[i] = f:read("*all")
     f:close()
-    print(markdown_dir .. tostring(i) .. ".txt cached")
+    -- print(markdown_dir .. tostring(i) .. ".txt cached")
   else
     print(markdown_dir .. tostring(i) .. ".txt doesn't exist")
   end
@@ -291,7 +291,8 @@ response = function(status, headers, body)
   resp["status"] = status
   resp["headers"] = headers
   resp["body"] = body
-  print(json.encode(resp))
+  -- print(json.encode(resp))
+  
   -- io.write(json.encode(resp))
   -- io.close(file)
 end
