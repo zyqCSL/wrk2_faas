@@ -137,7 +137,7 @@ int main(int argc, char **argv) {
         struct stat sb;
 
         char latency_path[100];
-        snprintf(latency_path, 100, "/home/%s/wrk2_latency/", cfg->username);
+        snprintf(latency_path, 100, "/home/%s/wrk2_latency/", cfg.username);
         assert(stat(latency_path, &sb) == 0 && S_ISDIR(sb.st_mode));
         printf("%s exists", latency_path);
     }
@@ -218,7 +218,7 @@ int main(int argc, char **argv) {
         
         if (cfg.print_all_responses) {
             char filename[100] = {0};
-            sprintf(filename, "/home/%s/wrk2_latency/thread_%" PRIu64 ".txt", cfg->username, i);
+            sprintf(filename, "/home/%s/wrk2_latency/thread_%" PRIu64 ".txt", cfg.username, i);
 
             FILE* ff = fopen(filename, "w");
             uint64_t nnum=MAXL;
@@ -294,10 +294,10 @@ void *thread_main(void *arg) {
         // check parent directory exists
         struct stat sb;
         char realtime_path[100];
-        snprintf(realtime_path, 100, "/home/%s/wrk2_latency/realtime/", cfg->username);
+        snprintf(realtime_path, 100, "/home/%s/wrk2_latency/realtime/", cfg.username);
         assert(stat(realtime_path, &sb) == 0 && S_ISDIR(sb.st_mode));
         printf("%s exists", realtime_path);
-        snprintf(filename, 100, "/home/%s/wrk2_latency/realtime/thead_%" PRIu64 ".txt", cfg->username, thread->tid);
+        snprintf(filename, 100, "/home/%s/wrk2_latency/realtime/thead_%" PRIu64 ".txt", cfg.username, thread->tid);
         thread->ff = fopen(filename, "w");
     }
 
