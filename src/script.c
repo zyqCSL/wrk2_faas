@@ -140,7 +140,8 @@ void script_init(lua_State *L, thread *t, int argc, char **argv) {
     lua_pop(t->L, 1);
 }
 
-void script_request(lua_State *L, char **buf, size_t *len) {
+int script_request(lua_State *L, char **buf, size_t *len) {
+    int function_type = 0;  // serverless function type
     int pop = 1;
     lua_getglobal(L, "request");
     if (!lua_isfunction(L, -1)) {
@@ -150,9 +151,22 @@ void script_request(lua_State *L, char **buf, size_t *len) {
     }
     lua_call(L, 0, 1);
     const char *str = lua_tolstring(L, -1, len);
+    // distinguish function type
+    if(strstr(str, "autocomplete") != NULL)
+        function_type = 1;
+    else if(strstr(str, "img-resize") != NULL)
+        function_type = 2;
+    else if(strstr(str, "ocr-img") != NULL)
+        function_type = 3;
+    else if(strstr(str, "sentiment") != NULL)
+        function_type = 4;
+    else if(strstr(str, "markdown2html") != NULL)
+        function_type = 5;
+
     *buf = realloc(*buf, *len);
     memcpy(*buf, str, *len);
     lua_pop(L, pop);
+    return function_type;
 }
 
 void script_response(lua_State *L, int status, buffer *headers, buffer *body) {

@@ -12,6 +12,7 @@
 
 uint64_t raw_latency[MAXTHREADS][MAXL];
 uint64_t raw_send_time[MAXTHREADS][MAXL];
+uint64_t raw_function_type[MAXTHREADS][MAXL];
 
 static struct config {
     uint64_t threads;
@@ -219,7 +220,7 @@ int main(int argc, char **argv) {
             uint64_t nnum=MAXL;
             if ((t->complete) < nnum) nnum = t->complete;
             for (uint64_t j=1; j < nnum; ++j)
-                fprintf(ff, "%" PRIu64 " %" PRIu64 "\n", raw_latency[i][j], raw_send_time[i][j]);
+                fprintf(ff, "%" PRIu64 " %" PRIu64 %d"\n", raw_latency[i][j], raw_send_time[i][j], raw_function_type[i][j]);
             fclose(ff);
         }
     }
@@ -599,7 +600,8 @@ static int response_complete(http_parser *parser) {
             // write (latency, send_time) to file
             if (cfg.print_realtime_latency) {
               //  fprintf(thread->ff, "%" PRIu64 "\n", thread->lat[int(thread->monitored*0.99)]);
-                fprintf(thread->ff, "%" PRId64 " %" PRId64 "\n", actual_latency_timing, c->actual_latency_start[c->complete & MAXO]);
+                fprintf(thread->ff, "%" PRId64 " %" PRId64 %d"\n", 
+                    actual_latency_timing, c->actual_latency_start[c->complete & MAXO], c->function_type[c->complete & MAXO]);
                 fflush(thread->ff);
             }
 
@@ -610,6 +612,7 @@ static int response_complete(http_parser *parser) {
         if (cfg.print_all_responses && ((thread->complete) < MAXL)) {
             raw_latency[thread->tid][thread->complete] = actual_latency_timing;
             raw_send_time[thread->tid][thread->complete] = c->actual_latency_start[c->complete & MAXO];
+            raw_function_type[thread->tid][thread->complete] = c->function_type[c->complete & MAXO];
         }
     }
 
@@ -653,6 +656,7 @@ static void socket_connected(aeEventLoop *loop, int fd, void *data, int mask) {
 static void socket_writeable(aeEventLoop *loop, int fd, void *data, int mask) {
     connection *c = data;
     thread *thread = c->thread;
+    int function_type = 0;
 
     if (!c->written) {
         uint64_t time_usec_to_wait = usec_to_next_send(c);
@@ -668,7 +672,7 @@ static void socket_writeable(aeEventLoop *loop, int fd, void *data, int mask) {
     }
 
     if (!c->written && cfg.dynamic) {
-        script_request(thread->L, &c->request, &c->length);
+        function_type = script_request(thread->L, &c->request, &c->length);
     }
 
     char  *buf = c->request + c->written;
@@ -684,6 +688,7 @@ static void socket_writeable(aeEventLoop *loop, int fd, void *data, int mask) {
     if (!c->written) {
         c->start = time_us();
         c->actual_latency_start[c->sent & MAXO] = c->start;
+        c->function_type[c->sent & MAXO] = function_type;
         //if (c->sent) printf("sent %"PRIu64" @ %"PRIu64"\n", c->sent, c->actual_latency_start[c->sent & MAXO]-c->actual_latency_start[(c->sent-1) & MAXO]);
         c->sent ++;
     }

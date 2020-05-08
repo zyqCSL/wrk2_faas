@@ -90,6 +90,7 @@ typedef struct connection {
     buffer body;
     char buf[RECVBUF];
     uint64_t actual_latency_start[MAXO+1];
+    int function_type[MAXO+1];
     // Internal tracking numbers (used purely for debugging):
 } connection;
 

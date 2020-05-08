@@ -1,7 +1,8 @@
 # wrk2
   **Modifications for serverless**
-  Added lua scripts for triggering 
-  Fixed bug 
+  Added lua scripts for triggering (scripts/serverless_harvest_vm)
+  Fixed histogram overflow bug (wrk.c::response_complete)
+  Distinguish different function types (script.c::script_request)
 
   **Modifications made by Shuang**
 
