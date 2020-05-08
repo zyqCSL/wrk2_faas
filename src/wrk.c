@@ -30,6 +30,7 @@ static struct config {
     bool     print_all_responses;
     bool     print_realtime_latency;
     char    *script;
+    char    *username;
     SSL_CTX *ctx;
 } cfg;
 
@@ -134,8 +135,11 @@ int main(int argc, char **argv) {
     // check directory
     if (cfg.print_all_responses) {
         struct stat sb;
-        assert(stat("/home/yanqi/wrk2_latency/", &sb) == 0 && S_ISDIR(sb.st_mode));
-        printf("/home/yanqi/wrk2_latency/ exists");
+
+        char latency_path[100];
+        snprintf(latency_path, 100, "/home/%s/wrk2_latency/", cfg->username);
+        assert(stat(latency_path, &sb) == 0 && S_ISDIR(sb.st_mode));
+        printf("%s exists", latency_path);
     }
 
     for (uint64_t i = 0; i < cfg.threads; i++) {
@@ -213,8 +217,8 @@ int main(int argc, char **argv) {
         hdr_add(real_latency_histogram, t->real_latency_histogram);
         
         if (cfg.print_all_responses) {
-            char filename[50] = {0};
-            sprintf(filename, "/home/yanqi/wrk2_latency/thread_%" PRIu64 ".txt", i);
+            char filename[100] = {0};
+            sprintf(filename, "/home/%s/wrk2_latency/thread_%" PRIu64 ".txt", cfg->username, i);
 
             FILE* ff = fopen(filename, "w");
             uint64_t nnum=MAXL;
@@ -286,12 +290,14 @@ void *thread_main(void *arg) {
     }
     
     if (cfg.print_realtime_latency) {
-        char filename[50];
+        char filename[100];
         // check parent directory exists
         struct stat sb;
-        assert(stat("/home/yanqi/wrk2_latency/realtime/", &sb) == 0 && S_ISDIR(sb.st_mode));
-        printf("/home/yanqi/wrk2_latency/realtime/ exists");
-        snprintf(filename, 50, "/home/yanqi/wrk2_latency/realtime/thead_%" PRIu64 ".txt", thread->tid);
+        char realtime_path[100];
+        snprintf(realtime_path, 100, "/home/%s/wrk2_latency/realtime/", cfg->username);
+        assert(stat(realtime_path, &sb) == 0 && S_ISDIR(sb.st_mode));
+        printf("%s exists", realtime_path);
+        snprintf(filename, 100, "/home/%s/wrk2_latency/realtime/thead_%" PRIu64 ".txt", cfg->username, thread->tid);
         thread->ff = fopen(filename, "w");
     }
 
@@ -776,6 +782,7 @@ static int parse_args(struct config *cfg, char **url, struct http_parser_url *pa
     cfg->print_all_responses = false;
     cfg->print_realtime_latency = false;
     cfg->dist = 0;
+    cfg->username = "yz2297";
 
     while ((c = getopt_long(argc, argv, "t:c:d:s:D:H:T:R:LPpBrv?", longopts, NULL)) != -1) {
         switch (c) {
@@ -801,6 +808,8 @@ static int parse_args(struct config *cfg, char **url, struct http_parser_url *pa
             case 's':
                 cfg->script = optarg;
                 break;
+            case 'u': 
+                cfg->username = optarg;
             case 'H':
                 *header++ = optarg;
                 break;
