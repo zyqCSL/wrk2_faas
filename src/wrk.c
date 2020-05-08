@@ -584,14 +584,18 @@ static int response_complete(http_parser *parser) {
     if (cfg.record_all_responses) {
         assert(now > c->actual_latency_start[c->complete & MAXO] );
         uint64_t actual_latency_timing = now - c->actual_latency_start[c->complete & MAXO];
-        hdr_record_value(thread->latency_histogram, actual_latency_timing);
-        hdr_record_value(thread->real_latency_histogram, actual_latency_timing);
+        // if case of overflow
+        bool resp_valid = actual_latency_timing < MAX_LATENCY/2;
+        if(resp_valid) {
+            hdr_record_value(thread->latency_histogram, actual_latency_timing);
+            hdr_record_value(thread->real_latency_histogram, actual_latency_timing);
+        }
     
         thread->monitored++;
         thread->accum_latency += actual_latency_timing;
         if (thread->monitored == thread->target) { 
             // write (latency, send_time) to file
-            if (cfg.print_realtime_latency) {
+            if (cfg.print_realtime_latency && resp_valid) {
               //  fprintf(thread->ff, "%" PRIu64 "\n", thread->lat[int(thread->monitored*0.99)]);
                 fprintf(thread->ff, "%" PRId64 " %" PRId64 "\n", actual_latency_timing, c->actual_latency_start[c->complete & MAXO]);
                 fflush(thread->ff);

@@ -1,4 +1,7 @@
 # wrk2
+  **Modifications for serverless**
+  Added lua scripts for triggering 
+  Fixed bug 
 
   **Modifications made by Shuang**
 
