@@ -306,7 +306,7 @@ void *thread_main(void *arg) {
         c->length     = length;
         // interval is used to generate inter-arrival time
         c->interval   = (uint64_t)(1000000*thread->connections/thread->throughput);
-        printf("inter-arrival time = %" PRIu64 " us\n", c->interval);
+        // printf("inter-arrival time = %" PRIu64 " us\n", c->interval);
         c->throughput = throughput;
         c->complete   = 0;
         c->estimate   = 0;
@@ -584,18 +584,20 @@ static int response_complete(http_parser *parser) {
     if (cfg.record_all_responses) {
         assert(now > c->actual_latency_start[c->complete & MAXO] );
         uint64_t actual_latency_timing = now - c->actual_latency_start[c->complete & MAXO];
-        // if case of overflow
-        bool resp_valid = actual_latency_timing < MAX_LATENCY/2;
-        if(resp_valid) {
-            hdr_record_value(thread->latency_histogram, actual_latency_timing);
-            hdr_record_value(thread->real_latency_histogram, actual_latency_timing);
+
+        if(actual_latency_timing > MAX_LATENCY/2) {
+            printf("overflow latency = %" PRIu64 ", now = %" PRIu64 ", send_time = %" PRIu64 " c->complete & MAXO = %" PRIu64 "\n", actual_latency_timing, now, c->actual_latency_start[c->complete & MAXO], c->complete & MAXO);
+            actual_latency_timing = 0;
         }
+
+        hdr_record_value(thread->latency_histogram, actual_latency_timing);
+        hdr_record_value(thread->real_latency_histogram, actual_latency_timing);
     
         thread->monitored++;
         thread->accum_latency += actual_latency_timing;
         if (thread->monitored == thread->target) { 
             // write (latency, send_time) to file
-            if (cfg.print_realtime_latency && resp_valid) {
+            if (cfg.print_realtime_latency) {
               //  fprintf(thread->ff, "%" PRIu64 "\n", thread->lat[int(thread->monitored*0.99)]);
                 fprintf(thread->ff, "%" PRId64 " %" PRId64 "\n", actual_latency_timing, c->actual_latency_start[c->complete & MAXO]);
                 fflush(thread->ff);

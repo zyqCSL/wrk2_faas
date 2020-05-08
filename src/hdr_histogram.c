@@ -51,6 +51,11 @@ static int32_t get_sub_bucket_index(int64_t value, int32_t bucket_index, int32_t
 
 static int32_t counts_index(struct hdr_histogram* h, int32_t bucket_index, int32_t sub_bucket_index)
 {
+    // if(bucket_index >= h->bucket_count) {
+    //     printf("bucket_index = %" PRIu32 ", h->bucket_count = %" PRIu32", ERROR !!!!!!!!!!!!!!!!!!!!!\n", bucket_index, h->bucket_count);
+    //     // bucket_index = h->bucket_count - 1;
+    //     bucket_index = 0;
+    // }
     assert(bucket_index < h->bucket_count);
     assert(sub_bucket_index < h->sub_bucket_count);
     assert(bucket_index == 0 || (sub_bucket_index >= h->sub_bucket_half_count));
@@ -66,6 +71,7 @@ static int32_t counts_index(struct hdr_histogram* h, int32_t bucket_index, int32
 
 static int32_t counts_index_for(struct hdr_histogram* h, int64_t value)
 {
+    // printf("counts index for value = %" PRIu64 ", highest_trackable_value = %" PRIu64 "\n", value, h->highest_trackable_value);
     int32_t bucket_index     = get_bucket_index(h, value);
     int32_t sub_bucket_index = get_sub_bucket_index(value, bucket_index, h->unit_magnitude);
 

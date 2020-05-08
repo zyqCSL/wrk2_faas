@@ -140,7 +140,6 @@ void script_init(lua_State *L, thread *t, int argc, char **argv) {
     lua_pop(t->L, 1);
 }
 
-// yanqi, add logic here to distinguish between different types of serverless functions
 void script_request(lua_State *L, char **buf, size_t *len) {
     int pop = 1;
     lua_getglobal(L, "request");

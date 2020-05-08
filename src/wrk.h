@@ -30,6 +30,7 @@
 
 #define MAXL 1000000
 #define MAXO 16383
+// #define MAXO 1048575
 #define MAXTHREADS 40
 
 

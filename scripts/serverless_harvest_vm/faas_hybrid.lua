@@ -29,9 +29,9 @@ for i = 1, ocr_img_jpg_num do
     -- ocr_img_jpg[i] = mime.b64(temp)
     ocr_img_jpg[i] = f:read("*all")
     f:close()
-    print(ocr_img_dir .. tostring(i) .. ".jpg cached")
+    -- print(ocr_img_dir .. tostring(i) .. ".jpg cached")
   else
-    print(ocr_img_dir .. tostring(i) .. ".jpg doesn't exist")
+    -- print(ocr_img_dir .. tostring(i) .. ".jpg doesn't exist")
   end
 end 
 
@@ -42,9 +42,9 @@ for i = 1, ocr_img_png_num do
     -- ocr_img_png[i] = mime.b64(temp)
     ocr_img_png[i] = f:read("*all")
     f:close()
-    print(ocr_img_dir .. tostring(i) .. ".png cached")
+    -- print(ocr_img_dir .. tostring(i) .. ".png cached")
   else
-    print(ocr_img_dir .. tostring(i) .. ".png doesn't exist")
+    -- print(ocr_img_dir .. tostring(i) .. ".png doesn't exist")
   end
 end
 
@@ -62,9 +62,9 @@ for i = 1, img_resize_jpg_num do
     -- img_resize_jpg[i] = mime.b64(temp)
     img_resize_jpg[i] = f:read("*all")
     f:close()
-    print(img_resize_dir .. tostring(i) .. ".jpg cached")
+    -- print(img_resize_dir .. tostring(i) .. ".jpg cached")
   else
-    print(img_resize_dir .. tostring(i) .. ".jpg doesn't exist")
+    -- print(img_resize_dir .. tostring(i) .. ".jpg doesn't exist")
   end
 end 
 
@@ -75,9 +75,9 @@ for i = 1, img_resize_png_num do
     -- img_resize_png[i] = mime.b64(temp)
     img_resize_png[i] = f:read("*all")
     f:close()
-    print(img_resize_dir .. tostring(i) .. ".png cached")
+    -- print(img_resize_dir .. tostring(i) .. ".png cached")
   else
-    print(img_resize_dir .. tostring(i) .. ".png doesn't exist")
+    -- print(img_resize_dir .. tostring(i) .. ".png doesn't exist")
   end
 end
 
@@ -91,9 +91,9 @@ for i = 1, sentiment_num do
   if f then
     sentiments[i] = f:read("*all")
     f:close()
-    print(sentiment_dir .. tostring(i) .. ".txt cached")
+    -- print(sentiment_dir .. tostring(i) .. ".txt cached")
   else
-    print(sentiment_dir .. tostring(i)  .. ".txt doesn't exist")
+    -- print(sentiment_dir .. tostring(i)  .. ".txt doesn't exist")
   end
 end
 
@@ -107,9 +107,9 @@ for i = 1, markdown_num do
   if f then
     markdowns[i] = f:read("*all")
     f:close()
-    print(markdown_dir .. tostring(i) .. ".txt cached")
+    -- print(markdown_dir .. tostring(i) .. ".txt cached")
   else
-    print(markdown_dir .. tostring(i) .. ".txt doesn't exist")
+    -- print(markdown_dir .. tostring(i) .. ".txt doesn't exist")
   end
 end
 
@@ -243,10 +243,10 @@ local function html_markdown()
 end
 
 
-autocomplete_pdf  = 0.35
-sentiment_pdf     = 0.55
-html_markdown_pdf = 0.85
-img_resize_pdf    = 0.95
+autocomplete_pdf  = 0.2
+sentiment_pdf     = 0.4
+html_markdown_pdf = 0.6
+img_resize_pdf    = 0.8
 ocr_img_pdf       = 1.0
 -- read:write = 85:15
 request = function()
@@ -277,6 +277,7 @@ request = function()
   -- end
 end
 
+--[[
 response = function(status, headers, body)
   t = socket.gettime()*1000 -- ms
   -- local fn = "/yanqi/wrk2/resp_log/" .. tostring(t) .. ".txt"
@@ -289,3 +290,4 @@ response = function(status, headers, body)
   -- io.write(json.encode(resp))
   -- io.close(file)
 end
+]]
