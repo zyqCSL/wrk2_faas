@@ -99,7 +99,7 @@ end
 
 ------ html-markdown ---------
 markdown_dir = "/home/yanqi/wrk2_faas/scripts/serverless_harvest_vm/faas_data/html_markdown/"
-markdown_num = 25
+markdown_num = 9
 markdowns = {}
 
 for i = 1, markdown_num do 

@@ -100,7 +100,7 @@ end
 
 ------ html-markdown ---------
 markdown_dir = wrk2_path .. "/scripts/serverless_harvest_vm/faas_data/html_markdown/"
-markdown_num = 25
+markdown_num = 9
 markdowns = {}
 
 for i = 1, markdown_num do 
