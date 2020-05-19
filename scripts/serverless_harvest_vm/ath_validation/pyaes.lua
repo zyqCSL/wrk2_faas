@@ -327,7 +327,7 @@ local function float_operation()
   local body = {}
   body["N"] = math.random(500000, 5000000)
   local body_str = json.encode(body)
-  local path = "https://172.17.0.1/api/v1/web/guest/default/float_operation?" .. args
+  local path = "https://172.17.0.1/api/v1/web/guest/default/float_op?" .. args
   -- below only works with json inputs
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
