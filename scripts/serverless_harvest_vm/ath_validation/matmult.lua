@@ -124,8 +124,9 @@ image_names = {
   "b64_dog.jpg",        "b64_gundam3.jpg",  "b64_nature.jpg",     "b64_raptor2.jpg",  "b64_stones.jpg",      "b64_water.jpg",
   "b64_drone.png",      "b64_gundam.jpg",   "b64_news141.jpg",    "b64_raptor3.jpg",  "b64_sunflower.jpg",   "b64_wave.jpg"}
 image_data = {}
+image_data_num = 36
 
-for i = 1, #image_names do
+for i = 1, image_data_num do
   image_name = image_names[i] 
   f = io.open(image_process_dir .. image_name, "r")
   if f then
@@ -137,6 +138,8 @@ for i = 1, #image_names do
   end
 end
 
+print("image_process data cached")
+
 ------ video-process ---------
 video_process_dir = wrk2_path .. "/scripts/serverless_harvest_vm/faas_data/video_process_base64/"
 video_names = {
@@ -144,8 +147,9 @@ video_names = {
   "b64_640.avi",  "b64_cbw3.avi",             "b64_drop.avi",         "b64_lion-sample.avi",  "b64_star_trails.avi",
   "b64_720.avi",  "b64_DLP_PART_2_768k.avi",  "b64_flame.avi",        "b64_P6090053.avi",     "b64_video-sample.avi"}
 video_data = {}
+video_data_num = 15
 
-for i = 1, #video_names do
+for i = 1, video_data_num do
   video_name = video_names[i] 
   f = io.open(video_process_dir .. video_name, "r")
   if f then
@@ -156,6 +160,8 @@ for i = 1, #video_names do
     -- print(markdown_dir .. tostring(i) .. ".txt doesn't exist")
   end
 end
+
+print("video_process data cached")
 
 ------ function invocation ---------
 -- autocomplete  
@@ -168,7 +174,7 @@ end
 -- /guest/autocomplete/countries    
 -- /guest/autocomplete/characters   
 
-function autocomplete()
+local function autocomplete()
   local chosen_domain = Domains[math.random(#Domains)]
   local alphabet = Alphabets[math.random(#Alphabets)]
   -- https://172.17.0.1/api/v1/web/guest/autocomplete/uspresidents
@@ -220,7 +226,7 @@ end
 -- local function markdown_to_html()
 -- end
 
-function ocr_img()
+local function ocr_img()
   -- print("in ocr_img")
 
   -- curl -X POST -H "Content-Type: image/jpeg" --data-binary @./pitontable.jpg 
@@ -286,8 +292,8 @@ local function html_markdown()
 
 end
 
-function chameleon()
-  -- print("in ocr_img")
+local function chameleon()
+  -- print("in chameleon")
 
   -- curl -X POST -H "Content-Type: image/jpeg" --data-binary @./pitontable.jpg 
   -- https://172.17.0.1/api/v1/web/guest/default/ocr-img -k -v >output.txt
@@ -295,20 +301,23 @@ function chameleon()
   local method = "POST"
   local headers = {}  
   headers["Authorization"] = "Basic MjNiYzQ2YjEtNzFmNi00ZWQ1LThjNTQtODE2YWE0ZjhjNTAyOjEyM3pPM3haQ0xyTU42djJCS0sxZFhZRnBYbFBrY2NPRnFtMTJDZEFzTWdSVTRWck5aOWx5R1ZDR3VNREdJd1A="
+  headers["Content-Type"] = "application/json"
   local body = {}
-
-  body["rows"] = math.random(200, 1000)
-  body["cols"] = math.random(200, 1000)
-  local path = "https://172.17.0.1/api/v1/web/guest/default/chameleon?" .. args
+  body["rows"] = tostring(math.random(200, 1000))
+  body["cols"] = tostring(math.random(200, 1000))
+  local body_str = json.encode(body)
+  -- print(body_str)
+  local path = "https://172.17.0.1/api/v1/namespaces/_/actions/chameleon?" .. args
   -- below only works with json inputs
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
-  -- print("before return in ocr_img")
-  return wrk.format(method, path, headers, body)
+  -- print("before return in chameleon")
+  -- print(wrk.format(method, path, headers, body_str))
+  return wrk.format(method, path, headers, body_str)
 
 end
 
-function float_operation()
+local function float_operation()
   -- print("in ocr_img")
 
   -- curl -X POST -H "Content-Type: image/jpeg" --data-binary @./pitontable.jpg 
@@ -317,15 +326,17 @@ function float_operation()
   local method = "POST"
   local headers = {}  
   headers["Authorization"] = "Basic MjNiYzQ2YjEtNzFmNi00ZWQ1LThjNTQtODE2YWE0ZjhjNTAyOjEyM3pPM3haQ0xyTU42djJCS0sxZFhZRnBYbFBrY2NPRnFtMTJDZEFzTWdSVTRWck5aOWx5R1ZDR3VNREdJd1A="
-  local body = {}
+  headers["Content-Type"] = "application/json"
 
+  local body = {}
   body["N"] = math.random(500000, 5000000)
+  local body_str = json.encode(body)
   local path = "https://172.17.0.1/api/v1/web/guest/default/float_operation?" .. args
   -- below only works with json inputs
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
   -- print("before return in ocr_img")
-  return wrk.format(method, path, headers, body)
+  return wrk.format(method, path, headers, body_str)
 
 end
 
@@ -337,15 +348,17 @@ function linpack()
   local method = "POST"
   local headers = {}  
   headers["Authorization"] = "Basic MjNiYzQ2YjEtNzFmNi00ZWQ1LThjNTQtODE2YWE0ZjhjNTAyOjEyM3pPM3haQ0xyTU42djJCS0sxZFhZRnBYbFBrY2NPRnFtMTJDZEFzTWdSVTRWck5aOWx5R1ZDR3VNREdJd1A="
-  local body = {}
+  headers["Content-Type"] = "application/json"
 
+  local body = {}
   body["N"] = math.random(10, 500)
+  local body_str = json.encode(body)
   local path = "https://172.17.0.1/api/v1/web/guest/default/linpack?" .. args
   -- below only works with json inputs
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
   -- print("before return in ocr_img")
-  return wrk.format(method, path, headers, body)
+  return wrk.format(method, path, headers, body_str)
 end
 
 function matmult()
@@ -356,15 +369,17 @@ function matmult()
   local method = "POST"
   local headers = {}  
   headers["Authorization"] = "Basic MjNiYzQ2YjEtNzFmNi00ZWQ1LThjNTQtODE2YWE0ZjhjNTAyOjEyM3pPM3haQ0xyTU42djJCS0sxZFhZRnBYbFBrY2NPRnFtMTJDZEFzTWdSVTRWck5aOWx5R1ZDR3VNREdJd1A="
-  local body = {}
+  headers["Content-Type"] = "application/json"
 
+  local body = {}
   body["N"] = math.random(1000, 4000)
+  local body_str = json.encode(body)
   local path = "https://172.17.0.1/api/v1/web/guest/default/matmult?" .. args
   -- below only works with json inputs
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
   -- print("before return in ocr_img")
-  return wrk.format(method, path, headers, body)
+  return wrk.format(method, path, headers, body_str)
 end
 
 function pyaes()
@@ -375,16 +390,18 @@ function pyaes()
   local method = "POST"
   local headers = {}  
   headers["Authorization"] = "Basic MjNiYzQ2YjEtNzFmNi00ZWQ1LThjNTQtODE2YWE0ZjhjNTAyOjEyM3pPM3haQ0xyTU42djJCS0sxZFhZRnBYbFBrY2NPRnFtMTJDZEFzTWdSVTRWck5aOWx5R1ZDR3VNREdJd1A="
-  local body = {}
+  headers["Content-Type"] = "application/json"
 
+  local body = {}
   body["length"] = math.random(100, 1000)
   body["iteration"] = math.random(50, 500)
+  local body_str = json.encode(body)
   local path = "https://172.17.0.1/api/v1/web/guest/default/pyaes?" .. args
   -- below only works with json inputs
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
   -- print("before return in ocr_img")
-  return wrk.format(method, path, headers, body)
+  return wrk.format(method, path, headers, body_str)
 end
 
 
@@ -397,16 +414,18 @@ function image_process()
   local method = "POST"
   local headers = {}  
   headers["Authorization"] = "Basic MjNiYzQ2YjEtNzFmNi00ZWQ1LThjNTQtODE2YWE0ZjhjNTAyOjEyM3pPM3haQ0xyTU42djJCS0sxZFhZRnBYbFBrY2NPRnFtMTJDZEFzTWdSVTRWck5aOWx5R1ZDR3VNREdJd1A="
-  local body = {}
+  headers["Content-Type"] = "application/json"
 
-  local image_name = image_names[math.random(#image_names)]
+  local body = {}
+  local image_name = image_names[math.random(image_data_num)]
   body["image"] = image_data[image_name]
+  local body_str = json.encode(body)
   local path = "https://172.17.0.1/api/v1/web/guest/default/image_process?" .. args
   -- below only works with json inputs
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
   -- print("before return in ocr_img")
-  return wrk.format(method, path, headers, body)
+  return wrk.format(method, path, headers, body_str)
 
 end
 
@@ -419,18 +438,20 @@ function video_process()
   local method = "POST"
   local headers = {}  
   headers["Authorization"] = "Basic MjNiYzQ2YjEtNzFmNi00ZWQ1LThjNTQtODE2YWE0ZjhjNTAyOjEyM3pPM3haQ0xyTU42djJCS0sxZFhZRnBYbFBrY2NPRnFtMTJDZEFzTWdSVTRWck5aOWx5R1ZDR3VNREdJd1A="
-  local body = {}
+  headers["Content-Type"] = "application/json"
 
-  local video_name = video_names[math.random(#video_names)]
+  local body = {}
+  local video_name = video_names[math.random(video_data_num)]
   body["video"] = video_data[video_name]
   body["video_name"] = video_name
+  local body_str = json.encode(body)
   local path = "https://172.17.0.1/api/v1/web/guest/default/video_process?" .. args
   -- below only works with json inputs
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
   -- print("before return in ocr_img")
   
-  return wrk.format(method, path, headers, body)
+  return wrk.format(method, path, headers, body_str)
 
 end
 
@@ -447,6 +468,7 @@ matmult_pdf = 1.0
 pyaes_pdf = 0.0
 image_process_pdf = 0.0
 video_process_pdf = 0.0
+
 
 -- read:write = 85:15
 request = function()
@@ -511,7 +533,7 @@ response = function(status, headers, body)
   resp["status"] = status
   resp["headers"] = headers
   resp["body"] = body
-  -- print(json.encode(resp))
+  print(json.encode(resp))
   
   -- io.write(json.encode(resp))
   -- io.close(file)
