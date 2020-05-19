@@ -174,7 +174,7 @@ print("video_process data cached")
 -- /guest/autocomplete/countries    
 -- /guest/autocomplete/characters   
 
-function autocomplete()
+local function autocomplete()
   local chosen_domain = Domains[math.random(#Domains)]
   local alphabet = Alphabets[math.random(#Alphabets)]
   -- https://172.17.0.1/api/v1/web/guest/autocomplete/uspresidents
@@ -226,7 +226,7 @@ end
 -- local function markdown_to_html()
 -- end
 
-function ocr_img()
+local function ocr_img()
   -- print("in ocr_img")
 
   -- curl -X POST -H "Content-Type: image/jpeg" --data-binary @./pitontable.jpg 
@@ -292,7 +292,7 @@ local function html_markdown()
 
 end
 
-function chameleon()
+local function chameleon()
   -- print("in chameleon")
 
   -- curl -X POST -H "Content-Type: image/jpeg" --data-binary @./pitontable.jpg 
@@ -306,7 +306,7 @@ function chameleon()
   body["rows"] = math.random(200, 1000)
   body["cols"] = math.random(200, 1000)
   local body_str = json.encode(body)
-  local path = "https://172.17.0.1/api/v1/web/guest/default/chameleon?" .. args
+  local path = "https://172.17.0.1/api/v1/web/guest/default/chameleon"
   -- below only works with json inputs
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
@@ -316,7 +316,7 @@ function chameleon()
 
 end
 
-function float_operation()
+local function float_operation()
   -- print("in ocr_img")
 
   -- curl -X POST -H "Content-Type: image/jpeg" --data-binary @./pitontable.jpg 
