@@ -306,13 +306,13 @@ local function chameleon()
   body["rows"] = tostring(math.random(200, 1000))
   body["cols"] = tostring(math.random(200, 1000))
   local body_str = json.encode(body)
-  print(body_str)
-  local path = "https://172.17.0.1/api/v1/namespaces/_/actions/chameleon" .. args
+  -- print(body_str)
+  local path = "https://172.17.0.1/api/v1/namespaces/_/actions/chameleon?" .. args
   -- below only works with json inputs
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
   -- print("before return in chameleon")
-  print(wrk.format(method, path, headers, body_str))
+  -- print(wrk.format(method, path, headers, body_str))
   return wrk.format(method, path, headers, body_str)
 
 end
