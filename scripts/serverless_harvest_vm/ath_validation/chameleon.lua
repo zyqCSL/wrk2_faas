@@ -159,7 +159,6 @@ for i = 1, video_data_num do
   end
 end
 
-
 ------ function invocation ---------
 -- autocomplete  
 -- /guest/autocomplete/uspresidents 
@@ -328,7 +327,7 @@ local function float_operation()
   local body = {}
   body["N"] = math.random(500000, 5000000)
   local body_str = json.encode(body)
-  local path = "https://172.17.0.1/api/v1/web/guest/default/float_op?" .. args
+  local path = "https://172.17.0.1/api/v1/namespaces/_/actions/float_op?" .. args
   -- below only works with json inputs
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
@@ -350,7 +349,7 @@ function linpack()
   local body = {}
   body["N"] = math.random(10, 500)
   local body_str = json.encode(body)
-  local path = "https://172.17.0.1/api/v1/web/guest/default/linpack?" .. args
+  local path = "https://172.17.0.1/api/v1/namespaces/_/actions/linpack?" .. args
   -- below only works with json inputs
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
@@ -371,7 +370,7 @@ function matmult()
   local body = {}
   body["N"] = math.random(1000, 4000)
   local body_str = json.encode(body)
-  local path = "https://172.17.0.1/api/v1/web/guest/default/matmult?" .. args
+  local path = "https://172.17.0.1/api/v1/namespaces/_/actions/matmult?" .. args
   -- below only works with json inputs
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
@@ -393,7 +392,7 @@ function pyaes()
   body["length"] = math.random(100, 1000)
   body["iteration"] = math.random(50, 500)
   local body_str = json.encode(body)
-  local path = "https://172.17.0.1/api/v1/web/guest/default/pyaes?" .. args
+  local path = "https://172.17.0.1/api/v1/namespaces/_/actions/pyaes?" .. args
   -- below only works with json inputs
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
@@ -417,7 +416,7 @@ function image_process()
   local image_name = image_names[math.random(image_data_num)]
   body["image"] = image_data[image_name]
   local body_str = json.encode(body)
-  local path = "https://172.17.0.1/api/v1/web/guest/default/image_process?" .. args
+  local path = "https://172.17.0.1/api/v1/namespaces/_/actions/image_process?" .. args
   -- below only works with json inputs
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
@@ -442,7 +441,7 @@ function video_process()
   body["video"] = video_data[video_name]
   body["video_name"] = video_name
   local body_str = json.encode(body)
-  local path = "https://172.17.0.1/api/v1/web/guest/default/video_process?" .. args
+  local path = "https://172.17.0.1/api/v1/namespaces/_/actions/video_process?" .. args
   -- below only works with json inputs
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
