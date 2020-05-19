@@ -306,7 +306,7 @@ local function chameleon()
   body["rows"] = math.random(200, 1000)
   body["cols"] = math.random(200, 1000)
   local body_str = json.encode(body)
-  local path = "https://172.17.0.1/api/v1/web/guest/default/chameleon"
+  local path = "https://172.17.0.1/api/v1/namespaces/_/actions/chameleon" .. args
   -- below only works with json inputs
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
