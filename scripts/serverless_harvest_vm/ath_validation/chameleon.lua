@@ -124,8 +124,9 @@ image_names = {
   "b64_dog.jpg",        "b64_gundam3.jpg",  "b64_nature.jpg",     "b64_raptor2.jpg",  "b64_stones.jpg",      "b64_water.jpg",
   "b64_drone.png",      "b64_gundam.jpg",   "b64_news141.jpg",    "b64_raptor3.jpg",  "b64_sunflower.jpg",   "b64_wave.jpg"}
 image_data = {}
+image_data_num = 36
 
-for i = 1, #image_names do
+for i = 1, image_data_num do
   image_name = image_names[i] 
   f = io.open(image_process_dir .. image_name, "r")
   if f then
@@ -144,8 +145,9 @@ video_names = {
   "b64_640.avi",  "b64_cbw3.avi",             "b64_drop.avi",         "b64_lion-sample.avi",  "b64_star_trails.avi",
   "b64_720.avi",  "b64_DLP_PART_2_768k.avi",  "b64_flame.avi",        "b64_P6090053.avi",     "b64_video-sample.avi"}
 video_data = {}
+video_data_num = 15
 
-for i = 1, #video_names do
+for i = 1, video_data_num do
   video_name = video_names[i] 
   f = io.open(video_process_dir .. video_name, "r")
   if f then
@@ -399,7 +401,7 @@ function image_process()
   headers["Authorization"] = "Basic MjNiYzQ2YjEtNzFmNi00ZWQ1LThjNTQtODE2YWE0ZjhjNTAyOjEyM3pPM3haQ0xyTU42djJCS0sxZFhZRnBYbFBrY2NPRnFtMTJDZEFzTWdSVTRWck5aOWx5R1ZDR3VNREdJd1A="
   local body = {}
 
-  local image_name = image_names[math.random(#image_names)]
+  local image_name = image_names[math.random(image_data_num)]
   body["image"] = image_data[image_name]
   local path = "https://172.17.0.1/api/v1/web/guest/default/image_process?" .. args
   -- below only works with json inputs
@@ -421,7 +423,7 @@ function video_process()
   headers["Authorization"] = "Basic MjNiYzQ2YjEtNzFmNi00ZWQ1LThjNTQtODE2YWE0ZjhjNTAyOjEyM3pPM3haQ0xyTU42djJCS0sxZFhZRnBYbFBrY2NPRnFtMTJDZEFzTWdSVTRWck5aOWx5R1ZDR3VNREdJd1A="
   local body = {}
 
-  local video_name = video_names[math.random(#video_names)]
+  local video_name = video_names[math.random(video_data_num)]
   body["video"] = video_data[video_name]
   body["video_name"] = video_name
   local path = "https://172.17.0.1/api/v1/web/guest/default/video_process?" .. args
