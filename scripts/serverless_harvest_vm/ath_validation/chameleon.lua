@@ -520,7 +520,7 @@ response = function(status, headers, body)
   resp["status"] = status
   resp["headers"] = headers
   resp["body"] = body
-  -- print(json.encode(resp))
+  print(json.encode(resp))
   
   -- io.write(json.encode(resp))
   -- io.close(file)
