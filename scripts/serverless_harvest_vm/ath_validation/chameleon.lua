@@ -312,7 +312,7 @@ local function chameleon()
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
   -- print("before return in chameleon")
-
+  print(wrk.format(method, path, headers, body_str))
   return wrk.format(method, path, headers, body_str)
 
 end
