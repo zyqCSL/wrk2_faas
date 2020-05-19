@@ -27,12 +27,12 @@ for i = 1, ocr_img_jpg_num do
   f = io.open(ocr_img_dir .. tostring(i) .. ".jpg", "rb")
   if f then 
     -- local temp = f:read("*all")
-    -- ocr_img_jpg[i] = mime.b64(temp)
+    -- ocr_img_jpg[i] = mime."b64(temp)
     ocr_img_jpg[i] = f:read("*all")
     f:close()
     -- print(ocr_img_dir .. tostring(i) .. ".jpg cached")
   else
-    print(ocr_img_dir .. tostring(i) .. ".jpg doesn't exist")
+    -- print(ocr_img_dir .. tostring(i) .. ".jpg doesn't exist")
   end
 end 
 
@@ -40,12 +40,12 @@ for i = 1, ocr_img_png_num do
   f = io.open(ocr_img_dir .. tostring(i) .. ".png", "rb")
   if f then 
     -- local temp = f:read("*all")
-    -- ocr_img_png[i] = mime.b64(temp)
+    -- ocr_img_png[i] = mime."b64(temp)
     ocr_img_png[i] = f:read("*all")
     f:close()
     -- print(ocr_img_dir .. tostring(i) .. ".png cached")
   else
-    print(ocr_img_dir .. tostring(i) .. ".png doesn't exist")
+    -- print(ocr_img_dir .. tostring(i) .. ".png doesn't exist")
   end
 end
 
@@ -60,12 +60,12 @@ for i = 1, img_resize_jpg_num do
   f = io.open(img_resize_dir .. tostring(i) .. ".jpg", "rb")
   if f then
     -- local temp = f:read("*all")
-    -- img_resize_jpg[i] = mime.b64(temp)
+    -- img_resize_jpg[i] = mime."b64(temp)
     img_resize_jpg[i] = f:read("*all")
     f:close()
     -- print(img_resize_dir .. tostring(i) .. ".jpg cached")
   else
-    print(img_resize_dir .. tostring(i) .. ".jpg doesn't exist")
+    -- print(img_resize_dir .. tostring(i) .. ".jpg doesn't exist")
   end
 end 
 
@@ -73,12 +73,12 @@ for i = 1, img_resize_png_num do
   f = io.open(img_resize_dir .. tostring(i) .. ".png", "rb")
   if f then
     -- local temp = f:read("*all")
-    -- img_resize_png[i] = mime.b64(temp)
+    -- img_resize_png[i] = mime."b64(temp)
     img_resize_png[i] = f:read("*all")
     f:close()
     -- print(img_resize_dir .. tostring(i) .. ".png cached")
   else
-    print(img_resize_dir .. tostring(i) .. ".png doesn't exist")
+    -- print(img_resize_dir .. tostring(i) .. ".png doesn't exist")
   end
 end
 
@@ -94,7 +94,7 @@ for i = 1, sentiment_num do
     f:close()
     -- print(sentiment_dir .. tostring(i) .. ".txt cached")
   else
-    print(sentiment_dir .. tostring(i)  .. ".txt doesn't exist")
+    -- print(sentiment_dir .. tostring(i)  .. ".txt doesn't exist")
   end
 end
 
@@ -110,7 +110,50 @@ for i = 1, markdown_num do
     f:close()
     -- print(markdown_dir .. tostring(i) .. ".txt cached")
   else
-    print(markdown_dir .. tostring(i) .. ".txt doesn't exist")
+    -- print(markdown_dir .. tostring(i) .. ".txt doesn't exist")
+  end
+end
+
+------ image-process ---------
+image_process_dir = wrk2_path .. "/scripts/serverless_harvest_vm/faas_data/image_process_base64/"
+image_names = {
+  "b64_austrilia.jpg",  "b64_dubai.jpg",    "b64_halloween.jpg",  "b64_og.jpg.png",   "b64_raptor.jpg",      "b64_tiger.jpg",
+  "b64_building.jpg",   "b64_earth.jpg",    "b64_island.jpg",     "b64_oldarch.jpg",  "b64_rome.jpg",        "b64_tomcat2.jpg",
+  "b64_Chthon.jpg",     "b64_f35a.jpg",     "b64_j20.jpg",        "b64_puffin.jpg",   "b64_star-wars.jpg",   "b64_tomcat3.jpg",
+  "b64_Darvasa.jpg",    "b64_gundam2.jpg",  "b64_Nature.jpeg",    "b64_rafale.jpg",   "b64_Stonehenge.jpg",  "b64_tomcat.jpg",
+  "b64_dog.jpg",        "b64_gundam3.jpg",  "b64_nature.jpg",     "b64_raptor2.jpg",  "b64_stones.jpg",      "b64_water.jpg",
+  "b64_drone.png",      "b64_gundam.jpg",   "b64_news141.jpg",    "b64_raptor3.jpg",  "b64_sunflower.jpg",   "b64_wave.jpg"}
+image_data = {}
+
+for i = 1, #image_names do
+  image_name = image_names[i] 
+  f = io.open(image_process_dir .. image_name, "r")
+  if f then
+    image_data[i] = f:read("*all")
+    f:close()
+    -- print(markdown_dir .. tostring(i) .. ".txt cached")
+  else
+    -- print(markdown_dir .. tostring(i) .. ".txt doesn't exist")
+  end
+end
+
+------ video-process ---------
+video_process_dir = wrk2_path .. "/scripts/serverless_harvest_vm/faas_data/video_process_base64/"
+video_names = {
+  "b64_360.avi",  "b64_bird.avi",             "b64_dolbycanyon.avi",  "b64_grb_2.avi",        "b64_small.avi",
+  "b64_640.avi",  "b64_cbw3.avi",             "b64_drop.avi",         "b64_lion-sample.avi",  "b64_star_trails.avi",
+  "b64_720.avi",  "b64_DLP_PART_2_768k.avi",  "b64_flame.avi",        "b64_P6090053.avi",     "b64_video-sample.avi"}
+video_data = {}
+
+for i = 1, #video_names do
+  video_name = video_names[i] 
+  f = io.open(video_process_dir .. video_name, "r")
+  if f then
+    video_data[i] = f:read("*all")
+    f:close()
+    -- print(markdown_dir .. tostring(i) .. ".txt cached")
+  else
+    -- print(markdown_dir .. tostring(i) .. ".txt doesn't exist")
   end
 end
 
@@ -164,7 +207,7 @@ local function img_resize()
     body = img_resize_png[math.random(img_resize_png_num)]
   end
 
-  local path = "https://172.17.0.1/api/v1/web/guest/default/img-resize"
+  local path = "https://172.17.0.1/api/v1/web/guest/default/img-resize?" .. args
   -- below only works with json inputs
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/img-resize?" .. args
 
@@ -198,7 +241,7 @@ function ocr_img()
     body = ocr_img_png[math.random(ocr_img_png_num)]
   end
 
-  local path = "https://172.17.0.1/api/v1/web/guest/default/ocr-img"
+  local path = "https://172.17.0.1/api/v1/web/guest/default/ocr-img?" .. args
   -- below only works with json inputs
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
@@ -243,31 +286,207 @@ local function html_markdown()
 
 end
 
+function chameleon()
+  -- print("in ocr_img")
 
--- autocomplete_pdf  = 0.35
--- sentiment_pdf     = 0.55
--- html_markdown_pdf = 0.85
--- img_resize_pdf    = 0.95
--- ocr_img_pdf       = 1.0
-autocomplete_pdf  = 0.2
-sentiment_pdf     = 0.4
-html_markdown_pdf = 0.6
-img_resize_pdf    = 0.8
-ocr_img_pdf       = 1.0
+  -- curl -X POST -H "Content-Type: image/jpeg" --data-binary @./pitontable.jpg 
+  -- https://172.17.0.1/api/v1/web/guest/default/ocr-img -k -v >output.txt
+  local args = "blocking=true"
+  local method = "POST"
+  local headers = {}  
+  headers["Authorization"] = "Basic MjNiYzQ2YjEtNzFmNi00ZWQ1LThjNTQtODE2YWE0ZjhjNTAyOjEyM3pPM3haQ0xyTU42djJCS0sxZFhZRnBYbFBrY2NPRnFtMTJDZEFzTWdSVTRWck5aOWx5R1ZDR3VNREdJd1A="
+  local body = {}
+
+  body["rows"] = math.random(200, 1000)
+  body["cols"] = math.random(200, 1000)
+  local path = "https://172.17.0.1/api/v1/web/guest/default/chameleon?" .. args
+  -- below only works with json inputs
+  -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
+
+  -- print("before return in ocr_img")
+  return wrk.format(method, path, headers, body)
+
+end
+
+function float_operation()
+  -- print("in ocr_img")
+
+  -- curl -X POST -H "Content-Type: image/jpeg" --data-binary @./pitontable.jpg 
+  -- https://172.17.0.1/api/v1/web/guest/default/ocr-img -k -v >output.txt
+  local args = "blocking=true"
+  local method = "POST"
+  local headers = {}  
+  headers["Authorization"] = "Basic MjNiYzQ2YjEtNzFmNi00ZWQ1LThjNTQtODE2YWE0ZjhjNTAyOjEyM3pPM3haQ0xyTU42djJCS0sxZFhZRnBYbFBrY2NPRnFtMTJDZEFzTWdSVTRWck5aOWx5R1ZDR3VNREdJd1A="
+  local body = {}
+
+  body["N"] = math.random(500000, 5000000)
+  local path = "https://172.17.0.1/api/v1/web/guest/default/float_operation?" .. args
+  -- below only works with json inputs
+  -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
+
+  -- print("before return in ocr_img")
+  return wrk.format(method, path, headers, body)
+
+end
+
+function linpack()
+  -- print("in ocr_img")
+  -- curl -X POST -H "Content-Type: image/jpeg" --data-binary @./pitontable.jpg 
+  -- https://172.17.0.1/api/v1/web/guest/default/ocr-img -k -v >output.txt
+  local args = "blocking=true"
+  local method = "POST"
+  local headers = {}  
+  headers["Authorization"] = "Basic MjNiYzQ2YjEtNzFmNi00ZWQ1LThjNTQtODE2YWE0ZjhjNTAyOjEyM3pPM3haQ0xyTU42djJCS0sxZFhZRnBYbFBrY2NPRnFtMTJDZEFzTWdSVTRWck5aOWx5R1ZDR3VNREdJd1A="
+  local body = {}
+
+  body["N"] = math.random(10, 500)
+  local path = "https://172.17.0.1/api/v1/web/guest/default/linpack?" .. args
+  -- below only works with json inputs
+  -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
+
+  -- print("before return in ocr_img")
+  return wrk.format(method, path, headers, body)
+end
+
+function matmult()
+  -- print("in ocr_img")
+  -- curl -X POST -H "Content-Type: image/jpeg" --data-binary @./pitontable.jpg 
+  -- https://172.17.0.1/api/v1/web/guest/default/ocr-img -k -v >output.txt
+  local args = "blocking=true"
+  local method = "POST"
+  local headers = {}  
+  headers["Authorization"] = "Basic MjNiYzQ2YjEtNzFmNi00ZWQ1LThjNTQtODE2YWE0ZjhjNTAyOjEyM3pPM3haQ0xyTU42djJCS0sxZFhZRnBYbFBrY2NPRnFtMTJDZEFzTWdSVTRWck5aOWx5R1ZDR3VNREdJd1A="
+  local body = {}
+
+  body["N"] = math.random(1000, 4000)
+  local path = "https://172.17.0.1/api/v1/web/guest/default/matmult?" .. args
+  -- below only works with json inputs
+  -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
+
+  -- print("before return in ocr_img")
+  return wrk.format(method, path, headers, body)
+end
+
+function pyaes()
+  -- print("in ocr_img")
+  -- curl -X POST -H "Content-Type: image/jpeg" --data-binary @./pitontable.jpg 
+  -- https://172.17.0.1/api/v1/web/guest/default/ocr-img -k -v >output.txt
+  local args = "blocking=true"
+  local method = "POST"
+  local headers = {}  
+  headers["Authorization"] = "Basic MjNiYzQ2YjEtNzFmNi00ZWQ1LThjNTQtODE2YWE0ZjhjNTAyOjEyM3pPM3haQ0xyTU42djJCS0sxZFhZRnBYbFBrY2NPRnFtMTJDZEFzTWdSVTRWck5aOWx5R1ZDR3VNREdJd1A="
+  local body = {}
+
+  body["length"] = math.random(100, 1000)
+  body["iteration"] = math.random(50, 500)
+  local path = "https://172.17.0.1/api/v1/web/guest/default/pyaes?" .. args
+  -- below only works with json inputs
+  -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
+
+  -- print("before return in ocr_img")
+  return wrk.format(method, path, headers, body)
+end
+
+
+function image_process()
+  -- print("in ocr_img")
+
+  -- curl -X POST -H "Content-Type: image/jpeg" --data-binary @./pitontable.jpg 
+  -- https://172.17.0.1/api/v1/web/guest/default/ocr-img -k -v >output.txt
+  local args = "blocking=true"
+  local method = "POST"
+  local headers = {}  
+  headers["Authorization"] = "Basic MjNiYzQ2YjEtNzFmNi00ZWQ1LThjNTQtODE2YWE0ZjhjNTAyOjEyM3pPM3haQ0xyTU42djJCS0sxZFhZRnBYbFBrY2NPRnFtMTJDZEFzTWdSVTRWck5aOWx5R1ZDR3VNREdJd1A="
+  local body = {}
+
+  local image_name = image_names[math.random(#image_names)]
+  body["image"] = image_data[image_name]
+  local path = "https://172.17.0.1/api/v1/web/guest/default/image_process?" .. args
+  -- below only works with json inputs
+  -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
+
+  -- print("before return in ocr_img")
+  return wrk.format(method, path, headers, body)
+
+end
+
+function video_process()
+  -- print("in ocr_img")
+
+  -- curl -X POST -H "Content-Type: image/jpeg" --data-binary @./pitontable.jpg 
+  -- https://172.17.0.1/api/v1/web/guest/default/ocr-img -k -v >output.txt
+  local args = "blocking=true"
+  local method = "POST"
+  local headers = {}  
+  headers["Authorization"] = "Basic MjNiYzQ2YjEtNzFmNi00ZWQ1LThjNTQtODE2YWE0ZjhjNTAyOjEyM3pPM3haQ0xyTU42djJCS0sxZFhZRnBYbFBrY2NPRnFtMTJDZEFzTWdSVTRWck5aOWx5R1ZDR3VNREdJd1A="
+  local body = {}
+
+  local video_name = video_names[math.random(#video_names)]
+  body["video"] = video_data[video_name]
+  body["video_name"] = video_name
+  local path = "https://172.17.0.1/api/v1/web/guest/default/video_process?" .. args
+  -- below only works with json inputs
+  -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
+
+  -- print("before return in ocr_img")
+  
+  return wrk.format(method, path, headers, body)
+
+end
+
+
+autocomplete_pdf  = 0.0
+sentiment_pdf     = 0.0
+html_markdown_pdf = 0.1
+img_resize_pdf    = 0.2
+ocr_img_pdf       = 0.3
+chameleon_pdf     = 0.4
+float_operation_pdf = 0.5
+linpack_pdf = 0.6
+matmult_pdf = 0.7
+pyaes_pdf = 0.8
+image_process_pdf = 0.9
+video_process_pdf = 1.0
+
 -- read:write = 85:15
 request = function()
   local coin = math.random()
 
   if coin < autocomplete_pdf then
     return autocomplete()
+
   elseif coin < sentiment_pdf then
     return sentiment_analysis()
+
   elseif coin < html_markdown_pdf then
     return html_markdown()
+
   elseif coin < img_resize_pdf then
     return img_resize()
-  else
+
+  elseif coin < ocr_img_pdf then
     return ocr_img()
+
+  elseif coin < chameleon_pdf then
+    return chameleon()
+
+  elseif coin < float_operation_pdf then
+    return float_operation()
+
+  elseif coin < linpack_pdf then
+    return linpack()
+
+  elseif coin < matmult_pdf then
+    return matmult()
+
+  elseif coin < pyaes_pdf then
+    return pyaes()
+
+  elseif coin < image_process_pdf then
+    return image_process()
+
+  elseif coin < video_process_pdf then
+    return video_process()
   end
 
   -- return ocr_img()
@@ -282,6 +501,7 @@ request = function()
   --   return hello_py()
   -- end
 end
+
 
 response = function(status, headers, body)
   t = socket.gettime()*1000 -- ms

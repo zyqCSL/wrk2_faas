@@ -5,6 +5,7 @@ math.randomseed(socket.gettime()*1000)
 math.random(); math.random(); math.random()
 
 -------- metadata ---------
+wrk2_path = "/home/yz2297/Projects/msr_intern_2019/wrk2_faas"
 
 ------ autocomplete ---------
 Alphabets = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",
@@ -16,7 +17,7 @@ Domains = {"uspresidents", "uktowns", "soccerplayers", "names",
         "gameofthrones", "dickensnovels", "countries", "characters"}
 
 ------ img-ocr ---------
-ocr_img_dir = "/home/yanqi/wrk2_faas/scripts/serverless_harvest_vm/faas_data/img_ocr_dataset/"
+ocr_img_dir = wrk2_path .. "/scripts/serverless_harvest_vm/faas_data/img_ocr_dataset/"
 ocr_img_jpg = {}
 ocr_img_jpg_num = 6
 ocr_img_png  = {}
@@ -49,7 +50,7 @@ for i = 1, ocr_img_png_num do
 end
 
 ------ img-resize ---------
-img_resize_dir = "/home/yanqi/wrk2_faas/scripts/serverless_harvest_vm/faas_data/img_zip_dataset/"
+img_resize_dir = wrk2_path .. "/scripts/serverless_harvest_vm/faas_data/img_zip_dataset/"
 img_resize_jpg = {}
 img_resize_jpg_num = 17
 img_resize_png  = {}
@@ -82,7 +83,7 @@ for i = 1, img_resize_png_num do
 end
 
 ------ sentiment ---------
-sentiment_dir = "/home/yanqi/wrk2_faas/scripts/serverless_harvest_vm/faas_data/sentiment_data/"
+sentiment_dir = wrk2_path .. "/scripts/serverless_harvest_vm/faas_data/sentiment_data/"
 sentiment_num = 25
 sentiments = {}
 
@@ -98,7 +99,7 @@ for i = 1, sentiment_num do
 end
 
 ------ html-markdown ---------
-markdown_dir = "/home/yanqi/wrk2_faas/scripts/serverless_harvest_vm/faas_data/html_markdown/"
+markdown_dir = wrk2_path .. "/scripts/serverless_harvest_vm/faas_data/html_markdown/"
 markdown_num = 9
 markdowns = {}
 
@@ -114,7 +115,7 @@ for i = 1, markdown_num do
 end
 
 ------ image-process ---------
-image_process_dir = "/home/yanqi/wrk2_faas/scripts/serverless_harvest_vm/faas_data/image_process_base64/"
+image_process_dir = wrk2_path .. "/scripts/serverless_harvest_vm/faas_data/image_process_base64/"
 image_names = {
   "b64_austrilia.jpg",  "b64_dubai.jpg",    "b64_halloween.jpg",  "b64_og.jpg.png",   "b64_raptor.jpg",      "b64_tiger.jpg",
   "b64_building.jpg",   "b64_earth.jpg",    "b64_island.jpg",     "b64_oldarch.jpg",  "b64_rome.jpg",        "b64_tomcat2.jpg",
@@ -137,7 +138,7 @@ for i = 1, #image_names do
 end
 
 ------ video-process ---------
-video_process_dir = "/home/yanqi/wrk2_faas/scripts/serverless_harvest_vm/faas_data/video_process_base64/"
+video_process_dir = wrk2_path .. "/scripts/serverless_harvest_vm/faas_data/video_process_base64/"
 video_names = {
   "b64_360.avi",  "b64_bird.avi",             "b64_dolbycanyon.avi",  "b64_grb_2.avi",        "b64_small.avi",
   "b64_640.avi",  "b64_cbw3.avi",             "b64_drop.avi",         "b64_lion-sample.avi",  "b64_star_trails.avi",
@@ -436,16 +437,16 @@ end
 
 autocomplete_pdf  = 0.0
 sentiment_pdf     = 0.0
-html_markdown_pdf = 0.1
-img_resize_pdf    = 0.2
-ocr_img_pdf       = 0.3
-chameleon_pdf     = 0.4
-float_operation_pdf = 0.5
-linpack_pdf = 0.6
-matmult_pdf = 0.7
-pyaes_pdf = 0.8
-image_process_pdf = 0.9
-video_process_pdf = 1.0
+html_markdown_pdf = 0.0
+img_resize_pdf    = 0.0
+ocr_img_pdf       = 0.0
+chameleon_pdf     = 0.0
+float_operation_pdf = 1.0
+linpack_pdf = 0.0
+matmult_pdf = 0.0
+pyaes_pdf = 0.0
+image_process_pdf = 0.0
+video_process_pdf = 0.0
 
 -- read:write = 85:15
 request = function()
