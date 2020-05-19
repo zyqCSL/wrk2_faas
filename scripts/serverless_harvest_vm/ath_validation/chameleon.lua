@@ -138,6 +138,8 @@ for i = 1, image_data_num do
   end
 end
 
+print("image_process data cached")
+
 ------ video-process ---------
 video_process_dir = wrk2_path .. "/scripts/serverless_harvest_vm/faas_data/video_process_base64/"
 video_names = {
@@ -158,6 +160,8 @@ for i = 1, video_data_num do
     -- print(markdown_dir .. tostring(i) .. ".txt doesn't exist")
   end
 end
+
+print("video_process data cached")
 
 ------ function invocation ---------
 -- autocomplete  
