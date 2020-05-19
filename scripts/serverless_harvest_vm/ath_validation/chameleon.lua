@@ -293,7 +293,7 @@ local function html_markdown()
 end
 
 function chameleon()
-  -- print("in ocr_img")
+  print("in chameleon")
 
   -- curl -X POST -H "Content-Type: image/jpeg" --data-binary @./pitontable.jpg 
   -- https://172.17.0.1/api/v1/web/guest/default/ocr-img -k -v >output.txt
@@ -309,7 +309,7 @@ function chameleon()
   -- below only works with json inputs
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
-  -- print("before return in ocr_img")
+  print("before return in chameleon")
   return wrk.format(method, path, headers, body)
 
 end
