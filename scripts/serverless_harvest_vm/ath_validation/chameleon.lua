@@ -303,8 +303,8 @@ local function chameleon()
   headers["Authorization"] = "Basic MjNiYzQ2YjEtNzFmNi00ZWQ1LThjNTQtODE2YWE0ZjhjNTAyOjEyM3pPM3haQ0xyTU42djJCS0sxZFhZRnBYbFBrY2NPRnFtMTJDZEFzTWdSVTRWck5aOWx5R1ZDR3VNREdJd1A="
   headers["Content-Type"] = "application/json"
   local body = {}
-  body["rows"] = math.random(200, 1000)
-  body["cols"] = math.random(200, 1000)
+  body["rows"] = tostring(math.random(200, 1000))
+  body["cols"] = tostring(math.random(200, 1000))
   local body_str = json.encode(body)
   local path = "https://172.17.0.1/api/v1/namespaces/_/actions/chameleon" .. args
   -- below only works with json inputs
