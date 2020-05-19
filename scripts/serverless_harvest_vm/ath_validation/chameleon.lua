@@ -293,7 +293,7 @@ local function html_markdown()
 end
 
 function chameleon()
-  print("in chameleon")
+  -- print("in chameleon")
 
   -- curl -X POST -H "Content-Type: image/jpeg" --data-binary @./pitontable.jpg 
   -- https://172.17.0.1/api/v1/web/guest/default/ocr-img -k -v >output.txt
@@ -301,16 +301,18 @@ function chameleon()
   local method = "POST"
   local headers = {}  
   headers["Authorization"] = "Basic MjNiYzQ2YjEtNzFmNi00ZWQ1LThjNTQtODE2YWE0ZjhjNTAyOjEyM3pPM3haQ0xyTU42djJCS0sxZFhZRnBYbFBrY2NPRnFtMTJDZEFzTWdSVTRWck5aOWx5R1ZDR3VNREdJd1A="
+  headers["Content-Type"] = "application/json"
   local body = {}
-
   body["rows"] = math.random(200, 1000)
   body["cols"] = math.random(200, 1000)
+  local body_str = json.encode(body)
   local path = "https://172.17.0.1/api/v1/web/guest/default/chameleon?" .. args
   -- below only works with json inputs
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
-  print("before return in chameleon")
-  return wrk.format(method, path, headers, body)
+  -- print("before return in chameleon")
+
+  return wrk.format(method, path, headers, body_str)
 
 end
 
