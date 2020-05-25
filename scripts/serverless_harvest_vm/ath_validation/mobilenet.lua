@@ -509,17 +509,17 @@ end
 
 autocomplete_pdf  = 0.0
 sentiment_pdf     = 0.0
-html_markdown_pdf = 0.1
-img_resize_pdf    = 0.2
-ocr_img_pdf       = 0.3
-chameleon_pdf     = 0.4
-float_operation_pdf = 0.5
-linpack_pdf = 0.6
-matmult_pdf = 0.7
-pyaes_pdf = 0.8
-mobilenet_pdf = 0.85
-lr_review_pdf = 0.9
-image_process_pdf = 0.95
+html_markdown_pdf = 0.0
+img_resize_pdf    = 0.0
+ocr_img_pdf       = 0.0
+chameleon_pdf     = 0.0
+float_operation_pdf = 0.0
+linpack_pdf = 0.0
+matmult_pdf = 0.0
+pyaes_pdf = 0.0
+mobilenet_pdf = 1.0
+lr_review_pdf = 1.0
+image_process_pdf = 1.0
 video_process_pdf = 1.0
 
 
