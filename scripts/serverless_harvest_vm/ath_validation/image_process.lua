@@ -132,9 +132,9 @@ for i = 1, image_data_num do
   if f then
     image_data[i] = f:read("*all")
     f:close()
-    -- print(markdown_dir .. tostring(i) .. ".txt cached")
+    -- print(image_process_dir .. image_name .. ".txt cached")
   else
-    -- print(markdown_dir .. tostring(i) .. ".txt doesn't exist")
+    -- print(image_process_dir .. image_name .. ".txt doesn't exist")
   end
 end
 
@@ -421,6 +421,7 @@ function image_process()
   -- local path = "https://172.17.0.1/api/v1/namespaces/_/actions/ocr-img?" .. args
 
   -- print("before return in ocr_img")
+  print(wrk.format(method, path, headers, body_str))
   return wrk.format(method, path, headers, body_str)
 
 end
