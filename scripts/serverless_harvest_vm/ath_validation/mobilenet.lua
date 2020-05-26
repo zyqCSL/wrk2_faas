@@ -126,6 +126,18 @@ image_names = {
 image_data = {}
 image_data_num = 36
 
+for i = 1, image_data_num do
+  image_name = image_names[i] 
+  f = io.open(image_process_dir .. image_name, "r")
+  if f then
+    image_data[image_name] = f:read("*all")
+    f:close()
+    -- print(image_process_dir .. image_name .. ".txt cached")
+  else
+    -- print(image_process_dir .. image_name .. ".txt doesn't exist")
+  end
+end
+
 ------ image-classify ---------
 mobilenet_image_names = {
   "b64_austrilia.jpg",  "b64_dubai.jpg",    "b64_halloween.jpg",  "b64_raptor.jpg",      "b64_tiger.jpg",
@@ -153,7 +165,7 @@ for i = 1, video_data_num do
   video_name = video_names[i] 
   f = io.open(video_process_dir .. video_name, "r")
   if f then
-    video_data[i] = f:read("*all")
+    video_data[video_name] = f:read("*all")
     f:close()
     -- print(markdown_dir .. tostring(i) .. ".txt cached")
   else

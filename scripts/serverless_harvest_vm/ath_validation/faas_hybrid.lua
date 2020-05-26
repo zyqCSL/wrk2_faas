@@ -103,14 +103,15 @@ markdown_dir = wrk2_path .. "/scripts/serverless_harvest_vm/faas_data/html_markd
 markdown_num = 9
 markdowns = {}
 
-for i = 1, markdown_num do 
-  f = io.open(markdown_dir .. tostring(i) .. ".txt", "r")
+for i = 1, image_data_num do
+  image_name = image_names[i] 
+  f = io.open(image_process_dir .. image_name, "r")
   if f then
-    markdowns[i] = f:read("*all")
+    image_data[image_name] = f:read("*all")
     f:close()
-    -- print(markdown_dir .. tostring(i) .. ".txt cached")
+    -- print(image_process_dir .. image_name .. ".txt cached")
   else
-    -- print(markdown_dir .. tostring(i) .. ".txt doesn't exist")
+    -- print(image_process_dir .. image_name .. ".txt doesn't exist")
   end
 end
 
@@ -125,6 +126,18 @@ image_names = {
   "b64_drone.png",      "b64_gundam.jpg",   "b64_news141.jpg",    "b64_raptor3.jpg",  "b64_sunflower.jpg",   "b64_wave.jpg"}
 image_data = {}
 image_data_num = 36
+
+for i = 1, image_data_num do
+  image_name = image_names[i] 
+  f = io.open(image_process_dir .. image_name, "r")
+  if f then
+    image_data[image_name] = f:read("*all")
+    f:close()
+    -- print(image_process_dir .. image_name .. ".txt cached")
+  else
+    -- print(image_process_dir .. image_name .. ".txt doesn't exist")
+  end
+end
 
 ------ image-classify ---------
 mobilenet_image_names = {
@@ -153,7 +166,7 @@ for i = 1, video_data_num do
   video_name = video_names[i] 
   f = io.open(video_process_dir .. video_name, "r")
   if f then
-    video_data[i] = f:read("*all")
+    video_data[video_name] = f:read("*all")
     f:close()
     -- print(markdown_dir .. tostring(i) .. ".txt cached")
   else

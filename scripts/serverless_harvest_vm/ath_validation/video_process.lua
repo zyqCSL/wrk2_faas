@@ -130,7 +130,7 @@ for i = 1, image_data_num do
   image_name = image_names[i] 
   f = io.open(image_process_dir .. image_name, "r")
   if f then
-    image_data[i] = f:read("*all")
+    image_data[image_name] = f:read("*all")
     f:close()
     -- print(markdown_dir .. tostring(i) .. ".txt cached")
   else
@@ -151,7 +151,7 @@ for i = 1, video_data_num do
   video_name = video_names[i] 
   f = io.open(video_process_dir .. video_name, "r")
   if f then
-    video_data[i] = f:read("*all")
+    video_data[video_name] = f:read("*all")
     f:close()
     -- print(markdown_dir .. tostring(i) .. ".txt cached")
   else
